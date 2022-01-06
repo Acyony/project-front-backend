@@ -1,0 +1,171 @@
+<%- include('./partials/navbar.ejs', {current: 'login' }); %>
+<body>
+<div class="container">
+    <%- include('partials/header', {current: 'login' }) %>
+
+    <div class="tm-main-content">
+        <section class="row tm-margin-b-l">
+            <div class="col-md-6 col-sm-12 mb-md-0 mb-5 tm-overflow-auto">
+                <h2 class="tm-blue-text tm-margin-b-p">Login</h2>
+                <div class="mr-lg-5">
+                    <!-- contact form -->
+                    <form action="#" method="post" class="tm-contact-form">
+                        <div class="form-group">
+                            <input type="text" id="login_username" class="form-control" placeholder="Username"
+                                   required />
+                        </div>
+                        <div class="form-group">
+                            <input type="password" id="login_password" class="form-control"
+                                   placeholder="password" required />
+                        </div>
+
+                        <button id="loginBtn" type="submit"
+                                class="tm-btn tm-btn-blue float-right">Login</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12 mb-md-0 mb-5 tm-overflow-auto">
+                <h2 class="tm-blue-text tm-margin-b-p">Register</h2>
+                <div class="mr-lg-5">
+                    <!-- contact form -->
+                    <form action="#" method="post" class="tm-contact-form">
+                        <div class="form-group">
+                            <input type="text" id="register_name" class="form-control"
+                                   placeholder="Type your FullName" required />
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="register_email" class="form-control" placeholder="User Name"
+                                   required />
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" id="register_username" class="form-control"
+                                   placeholder="Email" required />
+                        </div>
+                        <div class="form-group">
+                            <input type="password" id="register_password" class="form-control"
+                                   placeholder="password" required />
+                        </div>
+                        <div class="form-group">
+                            <input type="password" id="register_repassword" class="form-control"
+                                   placeholder="re-password" required />
+                        </div>
+
+                        <button id="registerBtn" type="submit"
+                                class="tm-btn tm-btn-blue float-right">register</button>
+                    </form>
+                </div>
+            </div>
+
+        </section>
+
+
+
+        <section class="media tm-highlight tm-highlight-w-icon">
+
+            <div class="tm-highlight-icon">
+                <i class="fa tm-fa-6x fa-meetup"></i>
+            </div>
+
+            <div class="media-body">
+                <header>
+                    <h2>Need Help?</h2>
+                </header>
+                <p class="tm-margin-b">Curabitur magna tellus, condimentum vitae consectetur id, elementum sit
+                    amet erat. Phasellus arcu leo, sagittis fringilla nisi et, pulvinar vestibulum mi. Maecenas
+                    mollis ullamcorper est at dignissim.</p>
+                <a href="" class="tm-white-bordered-btn">Live Chat</a>
+            </div>
+        </section>
+    </div>
+
+</div>
+
+<!-- messages modal start -->
+
+<div id="modal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" id="modalHeader">
+                <h5 class="modal-title" id="modalTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="modalContent">Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+                <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-dismiss="modal"
+                >Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- load JS files -->
+<!--<script src="js/jquery-1.11.3.min.js"></script> &lt;!&ndash; jQuery (https://jquery.com/download/) &ndash;&gt;-->
+<!--<script src="js/popper.min.js"></script> &lt;!&ndash; Popper (https://popper.js.org/) &ndash;&gt;-->
+<!--<script src="js/bootstrap.min.js"></script> &lt;!&ndash; Bootstrap (https://getbootstrap.com/) &ndash;&gt;-->
+<script>
+
+    /*-----=^.^=--------- encrypting the password -----=^.^=-----*/
+    const encryptPassword = (password) => {
+        return new Promise((resolve, reject) => {
+            bcrypt.hash(password, 10, (err, hash) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(hash);
+                }
+            });
+        });
+    };
+
+
+    const registerBtn = document.getElementById("registerBtn");
+    registerBtn.addEventListener("click", async (e) => {
+        var form = document.getElementsByClassName("tm-contact-form");
+
+        e.preventDefault();
+        const register_name = document.getElementById("register_name").value;
+        const register_email = document.getElementById("register_email").value;
+        const register_username =
+            document.getElementById("register_username").value;
+        const register_password =
+            document.getElementById("register_password").value;
+        const register_repassword = document.getElementById(
+            "register_repassword"
+        ).value;
+
+        const formData = {
+            fullName: register_name,
+            userName: register_username,
+            email: register_email,
+            password: register_password,
+        };
+
+        try {
+            if (register_password === register_repassword) {
+                const response = await fetch("/users/register", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(formData),
+                });
+            } else {
+                console.log("Password and re-password are not matching");
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    });
+
+
+
+
+</script>
+
+</body>

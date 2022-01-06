@@ -1,0 +1,18 @@
+<%- include('./partials/navbar.ejs', {current: 'admin' }); %>
+<body>
+<div class="container">
+    <%- include('./partials/header.ejs', {current: 'admin'}) %>
+    <div class="tm-main-content">
+        <section class="tm-margin-b-l">
+            <header>
+                <h2 class="tm-main-title">Welcome to our application</h2>
+            </header>
+            <p>use the following link to manage your account and subscription</p>
+            <ul>
+                <li><a href="/admin/addpost">Add Post</a></li>
+            </ul>
+        </section>
+    </div>
+    <!--    <%- include('partials/footer') %>-->
+</div>
+</body>

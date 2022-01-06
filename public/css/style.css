@@ -1,0 +1,27 @@
+.nav-item {
+    /*padding: 1rem;*/
+    /*background-color: pink;*/
+}
+
+.bodyStyle {
+    height: 100%;
+}
+
+.cardStyle {
+    display: flex;
+}
+
+.card {
+    margin-left: 2rem
+}
+
+#aboutContainer {
+    background-color: pink;
+    /*height: 60vh;*/
+    width: 100vw;
+}
+
+.aboutSectionStyle{
+    height: 60vh;
+    background-color: deepskyblue;
+}
