@@ -3,9 +3,6 @@ const bcrypt = require("bcrypt");
 const {validationResult} = require("express-validator");
 
 /*-----=^.^=---------to get a user-----=^.^=-----*/
-const User = require("../models/userModel");
-const bcrypt = require("bcrypt");
-
 async function getUserById(req, res, next) {
     console.log("=^.^= Hello user!");
     try {
@@ -36,6 +33,7 @@ async function getUserById(req, res, next) {
 // }
 
 /*-----=^.^=---------to update a user-----=^.^=-----*/
+
 async function updateUser(req, res, next) {
     try {
         const userId = req.params.uid;
@@ -49,12 +47,12 @@ async function updateUser(req, res, next) {
                     password: req.body.password,
                 },
             },
-            {returnDocument: "after"}
+            { returnDocument: "after" }
         );
         if (userUpdated) {
-            res.status(200).send({userUpdated});
+            res.status(200).send({ userUpdated });
         } else {
-            res.status(404).send({msg: "User not found!"});
+            res.status(404).send({ msd: "User not found!" });
         }
     } catch (err) {
         console.log(err);
@@ -92,4 +90,27 @@ const encryptPassword = (password) => {
     });
 };
 
-module.exports = {getUserById, updateUser, deleteUser, logoutUser};
+
+const adminHome = (req, res) => {
+  res.render("admin");
+};
+
+
+// const getUsers = async (req, res, next) => {
+//   try {
+//     const users = await User.find({});
+//     res.send(users);
+//   } catch (err) {
+//     console.log(err);
+//     err.status(500);
+//     next(err);
+//   }
+// };
+
+
+const logoutUser = (req, res, next) => {
+  req.session.destroy();
+  res.redirect(`/`);
+};
+
+module.exports = { getUserById, updateUser, deleteUser, adminHome, logoutUser };

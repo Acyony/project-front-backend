@@ -1,20 +1,41 @@
+const express = require('express')
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
-const {validationResult} = require("express-validator");
+const { validationResult } = require("express-validator");
 
-/*-----=^.^=--------- add a new User -----=^.^=-----*/
+async function loginUser(req, res, next) {
+  const { userName, password } = req.body;
 
+  const user = await User.findOne({ userName });
+
+  if (user == null) {
+    return res.status(400).send({ msg: "No user found" });
+  }
+  try {
+    if (bcrypt.compare(password, user.password)) {
+      req.session.user = user;
+      res.status(200).json({ msg: "Success" });
+    } else {
+      res.status(400).json({ msg: "Denied" });
+    }
+  } catch (error) {
+    console.log(error);
+    error.status(500);
+    next(error);
+  }
+}
+
+/*add a new user*/
 async function addUser(req, res, next) {
-    console.log("=^.^= Hello New User!");
+    console.log("Hello New User!");
 
-    // handling  the error
+    //handle the error
     try {
         const err = validationResult(req);
         if (!err.isEmpty()) {
             return res.status(400).send(err);
         }
-        console.log(req.body);
-        const {fullName, userName, email, password} = req.body;
+        const { fullName, userName, email, password } = req.body;
         const result = await User.create({
             fullName,
             userName,
@@ -22,39 +43,31 @@ async function addUser(req, res, next) {
             password: await encryptPassword(password),
         });
 
-        // Returning "result will expose the user password what isn't safe
-        // res.status(200).send(result);
+        //returning "result" will expose the user, that is not safe
 
-        res.status(200).send({
-            fullName,
-            userName,
-            email,
-        });
+        res.status(200).send(result);
     } catch (err) {
         console.log(err);
         err.status(500);
         next(err);
     }
 }
+/*encrypting the password*/
 
-async function loginUser(req, res, next) {
-    const { userName, password } = req.body;
+const encryptPassword = (password) => {
+  return new Promise((resolve, reject) => {
+    bcrypt.hash(password, 10, (err, hash) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(hash);
+      }
+    });
+  });
+};
 
-    const user = await User.findOne({ userName });
+module.exports = {
+  addUser,
+  loginUser,
+};
 
-    if (user == null) {
-        return res.status(400).send({ msg: "No user found" });
-    }
-    try {
-        if (bcrypt.compare(password, user.password)) {
-            res.status(200).json({ msg: "Success" });
-        } else {
-            res.status(400).json({ msg: "Denied" });
-        }
-    } catch (error) {
-        console.log(error);
-        error.status(500);
-        next(error);
-    }
-}
-module.exports = {addUser, loginUser};

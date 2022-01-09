@@ -1,18 +1,90 @@
+<%- include('partials/header', {current: 'admin' }) %>
 <%- include('./partials/navbar.ejs', {current: 'admin' }); %>
-<body>
-<div class="container">
-    <%- include('./partials/header.ejs', {current: 'admin'}) %>
-    <div class="tm-main-content">
-        <section class="tm-margin-b-l">
-            <header>
-                <h2 class="tm-main-title">Welcome to our application</h2>
-            </header>
-            <p>use the following link to manage your account and subscription</p>
-            <ul>
-                <li><a href="/admin/addpost">Add Post</a></li>
-            </ul>
-        </section>
+
+<div class="tm-main-content">
+    <section class="tm-margin-b-l">
+        <header>
+            <h2 class="tm-main-title text-center mt-4">Welcome to our application</h2>
+        </header>
+    </section>
+    <div class="container mt-5">
+        <div class="card  mt-4" id="form-card">
+            <div class="card-header ">
+                <h3>AskMe something</h3>
+            </div>
+
+            <div class="card body mt-4 mb-3">
+                <form id="ask-form" method="post" action="/saveQuestions">
+                    <div class="container mt-3">
+                        <label class="font-weight-bold" for="">Title</label>
+                        <input id="title" type="text" placeholder="Tittle" class="form-control" name="title">
+                    </div>
+
+                    <div class="container mt-3">
+                        <label class="font-weight-bold" for="">Description</label>
+                        <textarea placeholder="Ask something here" id="description" cols="30" rows="10"
+                                  class="form-control" name="description"></textarea>
+                        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                            <div class="btn-group mt-3" role="group">
+                                <select name="category" id="category">
+                                    <option value="HTML" class="dropdown-item" >HTML</option>
+                                    <option value="CSS" class="dropdown-item" >CSS</option>
+                                    <option value="JavaScript" class="dropdown-item" >JavaScript</option>
+                                    <option value="Other" class="dropdown-item" >Other</option>
+                                    <option value="N/A" class="dropdown-item" >N/A</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container mt-3 mb-3">
+                        <button id="ask-btn" class="btn btn-primary">Ask</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
     </div>
-    <!--    <%- include('partials/footer') %>-->
 </div>
-</body>
+
+<script>
+
+    const askBtn = document.getElementById("ask-btn");
+    askBtn.addEventListener("click", async (e) => {
+        e.preventDefault();
+        const title = document.getElementById("title").value;
+        const description = document.getElementById("description").value;
+        const category = document.getElementById("category").value;
+
+        const askFormData = {
+            title: title,
+            description: description,
+            category: category
+        }
+
+        console.log(askFormData)
+
+        try {
+            const response = await fetch("/admin/post", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(askFormData),
+            });
+
+            if(response.status === 200) {
+                // for now redirect to home page
+                window.location = "/"
+            } else {
+                console.log("something went wrong");
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+
+    })
+
+</script>
+
+<%- include('./partials/footer.ejs'); %>

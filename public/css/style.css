@@ -7,6 +7,10 @@
     height: 100%;
 }
 
+.blockquote-paragraph{
+    padding-top: 4rem;
+}
+
 .cardStyle {
     display: flex;
 }
@@ -16,12 +20,26 @@
 }
 
 #aboutContainer {
-    background-color: pink;
+    /*background-color: pink;*/
     /*height: 60vh;*/
-    width: 100vw;
+    /*width: 100vw;*/
 }
 
-.aboutSectionStyle{
+.aboutSectionStyle {
     height: 60vh;
-    background-color: deepskyblue;
+}
+
+.blockquote {
+    font-size: 2rem;
+    padding-top: 2rem;
+}
+
+.card-home{
+    width: 14rem;
+    margin-right: 1rem;
+    margin-left: 1rem;
+}
+
+.tm-main-content{
+    /*height: 80vh;*/
 }

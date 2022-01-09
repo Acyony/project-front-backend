@@ -1,54 +1,95 @@
+<%- include('partials/header', {current: 'home' }) %>
 <%- include('./partials/navbar.ejs', {current: 'home' }); %>
-<body class="bodyStyle">
+
 <div class="container mt-4 mb-4">
-
-    <%- include('partials/header', {current: 'home' }) %>
-
     <h1 class="text-center">Welcome to our application</h1>
 </div>
-<section class="aboutSectionStyle">
-</section>
 
-<div class="container mt-4 ">
-    <div class="container d-flex flex-wrap pt-4 pb-4" id="aboutContainer">
-        <div class="card " style="width: 15rem; ">
-            <img class="card-img-top" src="/images/contactMe.png" alt="Card image cap">
-            <div class="card-body">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's content.</p>
-                <a href="https://github.com/Acyony" target="_blank">Check my profile out!</a>
+<section class="homeStyle">
+    <div class="aboutSectionStyle">
+        <blockquote class="blockquote">
+            <p class="blockquote-paragraph">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus amet architecto atque
+                blanditiis cupiditate delectus dolore eligendi et eum illum impedit incidunt inventore iusto labore
+                minus, molestiae nihil nisi officia optio qui quo ratione sapiente sed sunt totam voluptates
+                voluptatum!</p>
+        </blockquote>
+    </div>
+
+    <div class="container mt-4">
+        <h3 class="text-center">Our team</h3>
+        <div class="container d-flex flex-wrap pt-4 pb-4" id="aboutContainer">
+            <div class="card-home">
+                <img
+                        class="card-img-top"
+                        src="/assets/alcione.jpeg"
+                        alt="Card image cap"
+                />
+                <div class="card-body">
+                    <p>Alcione Ribeiro</p>
+                    <p class="card-text">
+                        Some quick example text to build on the card title and make up the
+                        bulk of the card's content.
+                    </p>
+                    <a href="https://github.com/Acyony" target="_blank"
+                    >Check my profile out!</a
+                    >
+                </div>
             </div>
-        </div>
 
-        <div class="card" style="width: 15rem; ">
-            <img class="card-img-top" src="/images/contactMe.png" alt="Card image cap">
-            <div class="card-body">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's content.</p>
-                <a href="https://github.com/Acyony" target="_blank">Check my profile out!</a>
-
+            <div class="card-home" >
+                <img
+                        class="card-img-top"
+                        src="/assets/andrea.jpeg"
+                        alt="Card image cap"
+                />
+                <div class="card-body">
+                    <p>Andrea David</p>
+                    <p class="card-text">
+                        Some quick example text to build on the card title and make up the
+                        bulk of the card's content.
+                    </p>
+                    <a href="https://github.com/dev-drevil" target="_blank"
+                    >Check my profile out!</a
+                    >
+                </div>
             </div>
-        </div>
 
-        <div class="card" style="width: 15rem; ">
-            <img class="card-img-top" src="/images/contactMe.png" alt="Card image cap">
-            <div class="card-body">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's content.</p>
-                <a href="https://github.com/Acyony" target="_blank">Check my profile out!</a>
-
+            <div class="card-home" >
+                <img
+                        class="card-img-top"
+                        src="assets/viviana.jpeg"
+                        alt="Card image cap"
+                />
+                <div class="card-body">
+                    <p>Viviana Castaldo</p>
+                    <p class="card-text">
+                        Some quick example text to build on the card title and make up the
+                        bulk of the card's content.
+                    </p>
+                    <a href="https://github.com/87Vivi" target="_blank"
+                    >Check my profile out!</a
+                    >
+                </div>
             </div>
-        </div>
 
-        <div class="card" style="width: 15rem; ">
-            <img class="card-img-top" src="/images/contactMe.png" alt="Card image cap">
-            <div class="card-body">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's content.</p>
-                <a href="https://github.com/Acyony" target="_blank">Check my profile out!</a>
-
+            <div class="card-home" >
+                <img
+                        class="card-img-top"
+                        src="/assets/zhino.jpeg"
+                        alt="Card image cap"
+                />
+                <div class="card-body">
+                    <p>Zhino</p>
+                    <p class="card-text">
+                        Some quick example text to build on the card title and make up the
+                        bulk of the card's content.
+                    </p>
+                    <a href="https://github.com/JinoDev" target="_blank"
+                    >Check my profile out!</a
+                    >
+                </div>
             </div>
         </div>
     </div>
-</div>
-</body>
+    <%- include('./partials/footer.ejs'); %>
+</section>
