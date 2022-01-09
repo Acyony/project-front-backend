@@ -11,6 +11,7 @@ const app = express();
 
 const userRouter = require("./src/routers/userRouter");
 const adminRouter = require("./src/routers/adminRouter");
+const Post = require("./src/models/postModel");
 
 // setup session middlewares
 app.use(
@@ -33,6 +34,16 @@ app.get("/", (req, res) => {
 app.get("/login", (req, res) => {
   res.render("login");
 });
+
+app.get("/forum", async (req, res) => {
+    try {
+        const posts = await Post.find({});
+        return res.render("forum", {posts});
+    } catch (err) {
+        return res.redirect("/")
+    }
+});
+
 
 //db connection
 mongoose.connect(process.env.DB_CONNECTION);

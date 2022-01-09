@@ -7,7 +7,7 @@
     height: 100%;
 }
 
-.blockquote-paragraph{
+.blockquote-paragraph {
     padding-top: 4rem;
 }
 
@@ -34,12 +34,20 @@
     padding-top: 2rem;
 }
 
-.card-home{
+.card-home {
     width: 14rem;
     margin-right: 1rem;
     margin-left: 1rem;
 }
 
-.tm-main-content{
-    /*height: 80vh;*/
+#login-section-style {
+    margin-top: 2rem;
+    height: 80vh;
+}
+
+
+#forum-section-style {
+    background-color: #EEEDE7;
+    margin-bottom: 2rem;
+    padding: 2rem;
 }
