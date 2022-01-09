@@ -163,7 +163,29 @@
         }
     });
 
+    const loginBtn = document.getElementById("loginBtn");
+    loginBtn.addEventListener("click", async (e) => {
+        e.preventDefault();
+        const loginUsername = document.getElementById("login_username").value;
+        const loginPassword = document.getElementById("login_password").value;
 
+        const loginData = {
+            userName: loginUsername,
+            password: loginPassword,
+        };
+
+        try {
+            const response = await fetch("/users/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(loginData),
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    });
 
 
 </script>

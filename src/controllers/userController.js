@@ -37,98 +37,24 @@ async function addUser(req, res, next) {
     }
 }
 
-/*-----=^.^=---------to logout a user-----=^.^=-----*/
-async function logoutUser(req, res) {
-    req.logout();
-    res.redirect("/");
-}
+async function loginUser(req, res, next) {
+    const { userName, password } = req.body;
 
+    const user = await User.findOne({ userName });
 
-/*-----=^.^=---------to get a user-----=^.^=-----*/
-async function getUserById(req, res, next) {
-    console.log("=^.^= Hello user!");
+    if (user == null) {
+        return res.status(400).send({ msg: "No user found" });
+    }
     try {
-        console.log(req.params);
-        const user = await User.findById(req.params.uid);
-        if (!user) {
-            res.status(404).send("User not found!");
+        if (bcrypt.compare(password, user.password)) {
+            res.status(200).json({ msg: "Success" });
         } else {
-            res.status(200).send(user);
+            res.status(400).json({ msg: "Denied" });
         }
-    } catch (err) {
-        console.log(err);
-        err.status(500);
-        next(err);
+    } catch (error) {
+        console.log(error);
+        error.status(500);
+        next(error);
     }
 }
-
-/*-----=^.^=---------to get all users-----=^.^=-----*/
-async function getAllUsers(req, res, next) {
-    try {
-        const users = await User.find({});
-        res.send(users);
-    } catch (err) {
-        console.log(err);
-        err.status(500);
-        next(err);
-    }
-}
-
-/*-----=^.^=---------to update a user-----=^.^=-----*/
-async function updateUser(req, res, next) {
-    try {
-        const userId = req.params.uid;
-        const userUpdated = await User.findByIdAndUpdate(
-            userId,
-            {
-                $set: {
-                    fullName: req.body.fullName,
-                    userName: req.body.userName,
-                    email: req.body.email,
-                    password: req.body.password,
-                },
-            },
-            {returnDocument: "after"}
-        );
-        if (userUpdated) {
-            res.status(200).send({userUpdated});
-        } else {
-            res.status(404).send({msg: "User not found!"});
-        }
-    } catch (err) {
-        console.log(err);
-        err.status(500);
-        next(err);
-    }
-}
-
-/*-----=^.^=---------to delete a user-----=^.^=-----*/
-async function deleteUser(req, res, next) {
-    try {
-        const deletedUser = await User.findOneAndDelete(req.params.uid);
-        if (deletedUser) {
-            res.status(200).send({deletedUser, msg: "User deleted successfully!"});
-        } else {
-            res.status(404).send({msg: "There is no user with the given id."});
-        }
-    } catch (err) {
-        console.log(err);
-        err.status(500);
-        next(err);
-    }
-}
-
-/*-----=^.^=--------- encrypting the password -----=^.^=-----*/
-const encryptPassword = (password) => {
-    return new Promise((resolve, reject) => {
-        bcrypt.hash(password, 10, (err, hash) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(hash);
-            }
-        });
-    });
-};
-
-module.exports = {addUser, getUserById, getAllUsers, updateUser, deleteUser, logoutUser};
+module.exports = {addUser, loginUser};
