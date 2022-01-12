@@ -27,11 +27,11 @@
                         <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                             <div class="btn-group mt-3" role="group">
                                 <select name="category" id="category">
-                                    <option value="HTML" class="dropdown-item" >HTML</option>
-                                    <option value="CSS" class="dropdown-item" >CSS</option>
-                                    <option value="JavaScript" class="dropdown-item" >JavaScript</option>
-                                    <option value="Other" class="dropdown-item" >Other</option>
-                                    <option value="N/A" class="dropdown-item" >N/A</option>
+                                    <option value="HTML" class="dropdown-item">HTML</option>
+                                    <option value="CSS" class="dropdown-item">CSS</option>
+                                    <option value="JavaScript" class="dropdown-item">JavaScript</option>
+                                    <option value="Other" class="dropdown-item">Other</option>
+                                    <option value="N/A" class="dropdown-item">N/A</option>
                                 </select>
                             </div>
                         </div>
@@ -72,9 +72,9 @@
                 body: JSON.stringify(askFormData),
             });
 
-            if(response.status === 200) {
+            if (response.status === 200) {
                 // for now redirect to home page
-                window.location = "/"
+                window.location = "/forum"
             } else {
                 console.log("something went wrong");
             }

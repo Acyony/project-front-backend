@@ -20,6 +20,16 @@
                         <button type="submit" class="btn btn-primary mb-4">Answer</button>
                     </div>
                 </form>
+                <div class="container">
+                    <p class="font-weight-bold mt-5">Answers</p>
+                    <% answers.forEach(answer => { %>
+                        <div class="card mt-3">
+                            <div class="card-body">
+                                <%= answer.body %>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
             </div>
         <% }); %>
     </div>
